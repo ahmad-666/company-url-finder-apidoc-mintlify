@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "CUFinder",
+  "name": "Company URL Finder",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -19,7 +19,6 @@
           "/apis/quick-start",
           "/apis/authentication",
           "/apis/usage-limits",
-          "/apis",
           "/apis/errors"
         ]
       },
@@ -27,49 +26,13 @@
         "group": "Documentations",
         "pages": [
           {
-            "group": "Company APIs",
+            "group": "APIs",
             "directory": "accordion",
+            "root": "/apis",
             "pages": [
               "/apis/company-name-to-domain",
-              "/apis/company-linkedin-url-finder",
-              "/apis/domain-to-company-name",
-              "/apis/company-email-finder",
-              "/apis/company-phone-finder",
-              "/apis/company-lookalikes-finder",
-              "/apis/company-fundraising",
-              "/apis/company-revenue-finder",
-              "/apis/company-subsidiaries-finder",
-              "/apis/company-tech-stack-finder",
-              "/apis/company-enrichment",
-              "/apis/company-employee-count",
-              "/apis/company-locations",
-              "/apis/company-search",
-              "/apis/local-business-search-google-maps-search-api",
-              "/apis/b2b-customers-finder",
-              "/apis/company-career-page-finder",
-              "/apis/company-saas-checker",
-              "/apis/company-b2b-or-b2c-checker",
-              "/apis/company-mission-statement",
-              "/apis/company-snapshot"
-            ]
-          },
-          {
-            "group": "Contact APIs",
-            "directory": "accordion",
-            "pages": [
-              "/apis/reverse-email-lookup",
-              "/apis/linkedin-profile-enrichment",
-              "/apis/linkedin-profile-email-finder",
-              "/apis/person-enrichment",
-              "/apis/person-search"
-            ]
-          },
-          {
-            "group": "General APIs",
-            "directory": "accordion",
-            "pages": [
-              "/apis/phone-number-normalizer",
-              "/apis/address-normalizer"
+              "/apis/company-domain-to-name",
+              "/apis/linkedin-company-url-finder"
             ]
           }
         ]
@@ -78,20 +41,14 @@
   },
   "logo": {
     "href": "/apis",
-    "light": "/images/logos/logo.png",
-    "dark": "/images/logos/logo-text-white.png"
+    "light": "/images/logos/logo-dark-text.png",
+    "dark": "/images/logos/logo-white-text.png"
   },
   "navbar": {
-    "links": [
-      {
-        "label": "Contact Sales",
-        "href": "https://cufinder.io/contact-sales"
-      }
-    ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.cufinder.io/auth/signin"
+      "href": "https://companyurlfinder.com/login"
     }
   },
   "contextual": {
@@ -108,12 +65,8 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/cu_finder",
-      "github": "https://github.com/CUFinder",
-      "youtube": "https://www.youtube.com/@cufinderco",
-      "instagram": "https://www.instagram.com/cufinder.io",
-      "facebook": "https://www.facebook.com/cufinder",
-      "linkedin": "https://www.linkedin.com/company/cufinder"
+      "youtube": "https://www.youtube.com/@CompanyURLFinder",
+      "linkedin": "https://www.linkedin.com/company/companyurlfinder/"
     }
   },
   "redirects": [

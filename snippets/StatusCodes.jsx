@@ -37,7 +37,8 @@ export const StatusCodes = ({
       {showDesc && (
         <p>
           Here is a list of the different categories of status codes returned by
-          the CUFinder API. Use these to understand if a request was successful.
+          the Company URL Finder API. Use these to understand if a request was
+          successful.
         </p>
       )}
       <ul className="mt-6 grid gap-4 grid-cols-2 md:grid-cols-3">

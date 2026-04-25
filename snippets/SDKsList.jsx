@@ -56,7 +56,9 @@ export const SDKsList = ({ className = "" }) => {
               />
               <div>
                 <div>
-                  <p className="text-sm text-gray-800 dark:text-gray-200">{sdk.title}</p>
+                  <p className="text-sm text-gray-800 dark:text-gray-200">
+                    {sdk.title}
+                  </p>
                 </div>
                 <div>
                   <p className="text-xs text-gray-500 leading-[1.2rem]">
