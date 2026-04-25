@@ -1,6 +1,6 @@
 ---
 title: Company Name to Domain API
-description: Company websites are the foundation of B2B lead enrichment and outreach campaigns. The Company Name to Domain API transforms company names into verified website URLs with 94-98% accuracy, pulling from CUFinder's database of 85M+ enriched profiles. Built for developers automating CRM enrichment and lead qualification, this RESTful endpoint returns official domain addresses with confidence scores that power data pipelines, webhook integrations, and real-time lookup systems across your sales stack.
+description: Company websites power every B2B outreach campaign you run. Without verified domains, your lead lists sit there—useless. That's where Company URL Finder's Name to Domain API comes in.
 sidebarTitle: Company Name to Domain
 ---
 
@@ -9,18 +9,23 @@ import { StatusCodes } from "/snippets/StatusCodes.jsx";
 import { Button } from "/snippets/Button.jsx";
 import { ReadMore } from "/snippets/ReadMore.jsx";
 
-<div>
-    <div className="grid gap-4 grid-cols-12">
-        <div className="col-span-12 lg:col-span-5 pt-5">
-            <div className='border rounded-xl p-2 border-gray-200 overflow-hidden'>
-                <div className="flex justify-between flex-wrap gap-4 items-center">
-                    <div className="flex items-center gap-2">
-                        <Badge color="blue" shape="rounded" size="lg" className="uppercase">post</Badge>
-                        <p className="!my-0 ml-2 text-base text-gray-800 dark:text-white font-medium">https://api.cufinder.io/v2/cuf</p>
-                    </div>
-                </div>
+
+__Company URL Finder__ consistently delivers 95%+ accuracy across our database of 85M+ verified company records.
+This API transforms incomplete CRM records into actionable intelligence that your sales team actually uses. It integrates into any workflow—__CRM__ automation, lead qualification pipelines, real-time lookup systems, webhook triggers.
+
+
+<div className="mt-12">
+    <div className='border rounded-xl p-2 border-gray-200 overflow-hidden'>
+        <div className="flex justify-between flex-wrap gap-4 items-center">
+            <div className="flex items-center gap-2">
+                <Badge color="blue" shape="rounded" size="lg" className="uppercase">post</Badge>
+                <p className="!my-0 ml-2 text-base text-gray-800 dark:text-white font-medium">https://api.companyurlfinder.com/v2/services/name_to_domain</p>
             </div>
-            <Badge color="blue" size="lg" icon="star" className="mt-3">Credit usage is 1 per founded records.</Badge>
+        </div>
+    </div>
+    <Badge color="blue" size="lg" icon="star" className="mt-3">Credit usage is 1 per founded records.</Badge>
+    <div className="grid gap-4 grid-cols-12">
+        <div className="col-span-12 lg:col-span-5">
             <div>
                 ## Attributes
                 <ParamField header="x-api-key" type="string" required>
@@ -37,21 +42,20 @@ import { ReadMore } from "/snippets/ReadMore.jsx";
                 </ParamField>
             </div>
         </div>
-        <div className="col-span-12 lg:col-span-7">
+        <div className="col-span-12 lg:col-span-7 pt-6">
             <CodeGroup dropdown>
                 ```bash Request
-                curl --location 'https://api.cufinder.io/v2/cuf' \
+                curl --location 'https://api.companyurlfinder.com/v2/services/name_to_domain' \
                 --header 'Content-Type: application/x-www-form-urlencoded' \
-                --header 'x-api-key: api_key' \
+                --header 'x-api-key: your_api_key' \
                 --data-urlencode 'company_name=cufinder' \
                 --data-urlencode 'country_code=US'
                 ```
 
                 ```javascript Request
                 const myHeaders = new Headers();
-
                 myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-                myHeaders.append("x-api-key", "api_key");
+                myHeaders.append("x-api-key", "your_api_key");
 
                 const urlencoded = new URLSearchParams();
                 urlencoded.append("company_name", "cufinder");
@@ -64,21 +68,21 @@ import { ReadMore } from "/snippets/ReadMore.jsx";
                     redirect: "follow"
                 };
 
-                fetch("https://api.cufinder.io/v2/cuf", requestOptions)
-                .then((response) => response.text())
-                .then((result) => console.log(result))
-                .catch((error) => console.error(error));
+                fetch("https://api.companyurlfinder.com/v2/services/name_to_domain", requestOptions)
+                    .then((response) => response.text())
+                    .then((result) => console.log(result))
+                    .catch((error) => console.error(error));
                 ```
 
                 ```python Request
                 import requests
 
-                url = "https://api.cufinder.io/v2/cuf"
+                url = "https://api.companyurlfinder.com/v2/services/name_to_domain"
 
                 payload = 'company_name=cufinder&country_code=US'
                 headers = {
                     'Content-Type': 'application/x-www-form-urlencoded',
-                    'x-api-key': 'api_key'
+                    'x-api-key': 'your_api_key'
                 }
 
                 response = requests.request("POST", url, headers=headers, data=payload)
@@ -88,21 +92,17 @@ import { ReadMore } from "/snippets/ReadMore.jsx";
 
                 ```php Request
                 $client = new Client();
-
                 $headers = [
                     'Content-Type' => 'application/x-www-form-urlencoded',
-                    'x-api-key' => 'api_key'
+                    'x-api-key' => 'your_api_key'
                 ];
-
                 $options = [
                 'form_params' => [
                     'company_name' => 'cufinder',
                     'country_code' => 'US'
                 ]];
-
-                $request = new Request('POST', 'https://api.cufinder.io/v2/cuf', $headers);
+                $request = new Request('POST', 'https://api.companyurlfinder.com/v2/services/name_to_domain', $headers);
                 $res = $client->sendAsync($request, $options)->wait();
-
                 echo $res->getBody();
                 ```
             </CodeGroup>
@@ -110,12 +110,13 @@ import { ReadMore } from "/snippets/ReadMore.jsx";
                 ```json Response
                 {
                     "status": 1,
-                    "data": {
-                            "confidence_level": 94,
-                            "query": "cufinder",
-                            "domain": "http://cufinder.io/",
-                            "credit_count": 9997
-                    }
+                        "code": 1000,
+                        "errors": {},
+                        "data": {
+                            "exists": true,
+                            "domain": "cufinder.io",
+                            "remaining_credits": 9999
+                        }
                 }
                 ```
             </CodeGroup>
@@ -123,131 +124,212 @@ import { ReadMore } from "/snippets/ReadMore.jsx";
     </div>
 </div>
 
-<SDKsList className="mt-20" />
-
 <StatusCodes className="mt-20" />
 
 <div className="mt-20">
-    ## Company Name to Domain API Typescript SDK
+    ## Company Name to Domain API in Javascript
     <CodeGroup>
-        ```typescript Request
-        import { Cufinder } from '@cufinder/cufinder-ts';
+        ```javascript Request
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+        myHeaders.append("x-api-key", "your_api_key");
 
-        // Initialize the client
-        const client = new Cufinder('your-api-key-here');
+        const urlencoded = new URLSearchParams();
+        urlencoded.append("company_name", "cufinder");
+        urlencoded.append("country_code", "US");
 
-        // Initialize with more options
-        const client = new Cufinder('your-api-key-here', { timeout: 60000 });
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: urlencoded,
+            redirect: "follow"
+        };
 
-        const result = await client.cuf('cufinder', 'US');
-        console.log(result)
+        fetch("https://api.companyurlfinder.com/v2/services/name_to_domain", requestOptions)
+            .then((response) => response.text())
+            .then((result) => console.log(result))
+            .catch((error) => console.error(error));
         ```
     </CodeGroup>
 </div>
 
 <div className="mt-12">
-    ## Company Name to Domain API Python SDK
+    ## Company Name to Domain API in Python
     <CodeGroup>
         ```python Request
-        from cufinder import Cufinder
+        import requests
 
-        # Initialize the client
-        client = Cufinder('your-api-key-here')
+        url = "https://api.companyurlfinder.com/v2/services/name_to_domain"
 
-        # Initialize with more options
-        client = Cufinder('your-api-key-here', timeout=60)
+        payload = 'company_name=cufinder&country_code=US'
+        headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'x-api-key': 'your_api_key'
+        }
 
-        result = client.cuf('cufinder', 'US')
-        print(result)
+        response = requests.request("POST", url, headers=headers, data=payload)
+
+        print(response.text)
         ```
     </CodeGroup>
 </div>
+
 <div className="mt-12">
-    ## Company Name to Domain API Go SDK
+    ## Company Name to Domain API in PHP
+    <CodeGroup>
+        ```php Request
+        $client = new Client();
+        $headers = [
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'x-api-key' => 'your_api_key'
+        ];
+        $options = [
+        'form_params' => [
+            'company_name' => 'cufinder',
+            'country_code' => 'US'
+        ]];
+        $request = new Request('POST', 'https://api.companyurlfinder.com/v2/services/name_to_domain', $headers);
+        $res = $client->sendAsync($request, $options)->wait();
+        echo $res->getBody();
+        ```
+    </CodeGroup>
+</div>
+
+
+<div className="mt-12">
+    ## Company Name to Domain API in Go
     <CodeGroup>
         ```go Request
-       package main
+        package main
 
         import (
             "fmt"
-            "log"
-            "github.com/cufinder/cufinder-go"
+            "strings"
+            "net/http"
+            "io"
         )
 
         func main() {
-            // Initialize the client
-            sdk := cufinder.NewSDK("your-api-key-here")
-            
-            // Initialize with more options
-            sdk := cufinder.NewSDKWithConfig(cufinder.ClientConfig{
-                APIKey:     "your-api-key-here",
-                BaseURL:    "https://api.cufinder.io/v2",
-                Timeout:    60 * time.Second,
-                MaxRetries: 3,
-            })
-        }
 
-        result, err := sdk.CUF("cufinder", "US")
-        if err != nil {
-            log.Fatal(err)
+            url := "https://api.companyurlfinder.com/v2/services/name_to_domain"
+            method := "POST"
+
+            payload := strings.NewReader("company_name=cufinder&country_code=US")
+
+            client := &http.Client {
+            }
+            req, err := http.NewRequest(method, url, payload)
+
+            if err != nil {
+            fmt.Println(err)
+            return
+            }
+            req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+            req.Header.Add("x-api-key", "your_api_key")
+
+            res, err := client.Do(req)
+            if err != nil {
+            fmt.Println(err)
+            return
+            }
+            defer res.Body.Close()
+
+            body, err := io.ReadAll(res.Body)
+            if err != nil {
+            fmt.Println(err)
+            return
+            }
+            fmt.Println(string(body))
         }
-        fmt.Println(result)
         ```
     </CodeGroup>
 </div>
 
 <div className="mt-12">
-    ## Company Name to Domain API Ruby SDK
+    ## Company Name to Domain API in Ruby
     <CodeGroup>
         ```ruby Request
-        require 'cufinder_ruby'
+        require "uri"
+        require "net/http"
 
-        # Initialize the client
-        client = Cufinder::Client.new(api_key: 'your-api-key-here')
+        url = URI("https://api.companyurlfinder.com/v2/services/name_to_domain")
 
-        # Initialize with more options
-        client = Cufinder::Client.new(
-            api_key: 'your-api-key-here',
-            timeout: 60,
-            max_retries: 3
-        )
+        https = Net::HTTP.new(url.host, url.port)
+        https.use_ssl = true
 
-        result = client.cuf(company_name: 'cufinder', country_code: 'US')
-        puts result
+        request = Net::HTTP::Post.new(url)
+        request["Content-Type"] = "application/x-www-form-urlencoded"
+        request["x-api-key"] = "your_api_key"
+        request.body = "company_name=cufinder&country_code=US"
+
+        response = https.request(request)
+        puts response.read_body
         ```
     </CodeGroup>
 </div>
 
 <div className="mt-12">
-    ## Company Name to Domain API Rust SDK
+    ## Company Name to Domain API in Kotlin
     <CodeGroup>
-        ```rust Request
-        use cufinder_rust::CufinderSDK;
+        ```kotlin Request
+        val client = OkHttpClient()
+        val mediaType = "application/x-www-form-urlencoded".toMediaType()
+        val body = "company_name=cufinder&country_code=US".toRequestBody(mediaType)
+        val request = Request.Builder()
+            .url("https://api.companyurlfinder.com/v2/services/name_to_domain")
+            .post(body)
+            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+            .addHeader("x-api-key", "your_api_key")
+            .build()
+        val response = client.newCall(request).execute()
+        ```
+    </CodeGroup>
+</div>
 
-        #[tokio::main]
-        async fn main() -> Result<(), Box<dyn std::error::Error>> {
-            // Initialize the client
-            let sdk = CufinderSDK::new("your-api-key-here".to_string())?;
-            
-            // Initialize with more options
-            let sdk = CufinderSDK::with_config(ClientConfig {
-                api_key: "your-api-key-here".to_string(),
-                base_url: "https://api.cufinder.io/v2".to_string(),
-                timeout: Duration::from_secs(60),
-                max_retries: 3,
-            })?;
-            
-            Ok(())
-        }
-
-        let result = sdk.cuf("cufinder", "US").await?;
-        println!("{:?}", result);
+<div className="mt-12">
+    ## Company Name to Domain API in Java
+    <CodeGroup>
+        ```java Request
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+        RequestBody body = RequestBody.create(mediaType, "company_name=cufinder&country_code=US");
+        Request request = new Request.Builder()
+            .url("https://api.companyurlfinder.com/v2/services/name_to_domain")
+            .method("POST", body)
+            .addHeader("Content-Type", "application/x-www-form-urlencoded")
+            .addHeader("x-api-key", "your_api_key")
+            .build();
+        Response response = client.newCall(request).execute();
         ```
     </CodeGroup>
 </div>
 
 <div className="mt-20">
-  <ReadMore link="https://cufinder.io/apis/company-name-to-domain-api">
-    Company Name to Domain API
-  </ReadMore>
+    ## Read More 
+    <div className="flex flex-wrap gap-4">
+        <ReadMore link="https://companyurlfinder.com/company-name-to-domain-api">
+            Company Name to Domain Api
+        </ReadMore>
+        <ReadMore link="https://companyurlfinder.com/blogs/company-name-to-domain-api-in-python/">
+            Company Name to Domain API in Python
+        </ReadMore>
+        <ReadMore link="https://companyurlfinder.com/blogs/company-name-to-domain-api-in-javascript/">
+            Company Name to Domain API in Javascript
+        </ReadMore>
+        <ReadMore link="https://companyurlfinder.com/blogs/company-name-to-domain-api-in-php/">
+            Company Name to Domain API in PHP
+        </ReadMore>
+        <ReadMore link="https://companyurlfinder.com/blogs/company-name-to-domain-api-in-go/">
+            Company Name to Domain API in Go
+        </ReadMore>
+        <ReadMore link="https://companyurlfinder.com/blogs/company-name-to-domain-api-in-ruby/">
+            Company Name to Domain API in Ruby
+        </ReadMore>
+        <ReadMore link="https://companyurlfinder.com/blogs/company-name-to-domain-api-in-java/">
+            Company Name to Domain API in Java
+        </ReadMore>
+        <ReadMore link="https://companyurlfinder.com/blogs/company-name-to-domain-api-in-kotlin/">
+            Company Name to Domain API in Kotlin
+        </ReadMore>
+    </div>
 </div>

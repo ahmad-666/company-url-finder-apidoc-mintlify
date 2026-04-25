@@ -1,0 +1,301 @@
+---
+title: LinkedIn Company URL Finder API
+description: LinkedIn company pages drive B2B research, sales prospecting, and competitive intelligence. Without verified LinkedIn URLs, your team wastes hours manually searching—or worse, lands on wrong profiles. That's where our LinkedIn Company URL Finder API comes in.
+sidebarTitle: LinkedIn Company URL Finder
+---
+
+import { SDKsList } from "/snippets/SDKsList.jsx";
+import { StatusCodes } from "/snippets/StatusCodes.jsx";
+import { Button } from "/snippets/Button.jsx";
+import { ReadMore } from "/snippets/ReadMore.jsx";
+
+We matches company names against our database of 285M+ verified business records—returning accurate LinkedIn company page URLs with high confidence scores.
+
+This API transforms basic company lists into LinkedIn-enriched datasets your sales and marketing teams can leverage instantly. It integrates into any workflow—CRM enrichment pipelines, ABM campaign builders, sales intelligence platforms, prospecting automation tools.
+
+
+<div className="mt-12">
+    <div className='border rounded-xl p-2 border-gray-200 overflow-hidden'>
+        <div className="flex justify-between flex-wrap gap-4 items-center">
+            <div className="flex items-center gap-2">
+                <Badge color="blue" shape="rounded" size="lg" className="uppercase">post</Badge>
+                <p className="!my-0 ml-2 text-base text-gray-800 dark:text-white font-medium">https://api.companyurlfinder.com/v2/services/name_to_linkedin</p>
+            </div>
+        </div>
+    </div>
+    <Badge color="blue" size="lg" icon="star" className="mt-3">Credit usage is 1 per founded records.</Badge>
+    <div className="grid gap-4 grid-cols-12">
+        <div className="col-span-12 lg:col-span-5">
+            <div>
+                ## Attributes
+                <ParamField header="x-api-key" type="string" required>
+                     Your API key.   
+                </ParamField>
+                <ParamField body="query" type="string" required>
+                    cufinder.io
+                </ParamField>
+            </div>
+        </div>
+        <div className="col-span-12 lg:col-span-7 pt-6">
+            <CodeGroup dropdown>
+                ```bash Request
+                curl --location 'https://api.companyurlfinder.com/v2/services/name_to_linkedin' \
+                --header 'Content-Type: application/x-www-form-urlencoded' \
+                --header 'x-api-key: your_api_key' \
+                --data-urlencode 'query=cufinder.io'
+                ```
+
+                ```javascript Request
+                const myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+                myHeaders.append("x-api-key", "your_api_key");
+
+                const urlencoded = new URLSearchParams();
+                urlencoded.append("query", "cufinder.io");
+
+                const requestOptions = {
+                    method: "POST",
+                    headers: myHeaders,
+                    body: urlencoded,
+                    redirect: "follow"
+                };
+
+                try {
+                    const response = await fetch("https://api.companyurlfinder.com/v2/services/name_to_linkedin", requestOptions);
+                    const result = await response.text();
+                    console.log(result)
+                } catch (error) {
+                    console.error(error);
+                };
+                ```
+
+                ```python Request
+                 import requests
+
+                url = "https://api.companyurlfinder.com/v2/services/name_to_linkedin"
+
+                payload = 'query=cufinder.io'
+                headers = {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'x-api-key': 'your_api_key'
+                }
+
+                response = requests.request("POST", url, headers=headers, data=payload)
+
+                print(response.text)
+                ```
+
+                ```php Request
+                $client = new Client();
+                $headers = [
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                    'x-api-key' => 'your_api_key'
+                ];
+                $options = [
+                'form_params' => [
+                    'query' => 'cufinder.io'
+                ]];
+                $request = new Request('POST', 'https://api.companyurlfinder.com/v2/services/name_to_linkedin', $headers);
+                $res = $client->sendAsync($request, $options)->wait();
+                echo $res->getBody();
+                ```
+            </CodeGroup>
+            <CodeGroup>
+                ```json Response
+                {
+                    "status": 1,
+                    "code": 1000,
+                    "errors": {},
+                    "data": {
+                        "exists": true,
+                        "linkedin_url": "linkedin.com/company/cufinder",
+                        "remaining_credits": 2984
+                    }
+                }
+                ```
+            </CodeGroup>
+        </div>
+    </div>
+</div>
+
+<StatusCodes className="mt-20" />
+
+<div className="mt-20">
+    ## Company LinkedIn Company URL Finder API in Javascript
+    <CodeGroup>
+        ```javascript Request
+        const myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+        myHeaders.append("x-api-key", "your_api_key");
+
+        const urlencoded = new URLSearchParams();
+        urlencoded.append("query", "cufinder.io");
+
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: urlencoded,
+            redirect: "follow"
+        };
+
+        try {
+            const response = await fetch("https://api.companyurlfinder.com/v2/services/name_to_linkedin", requestOptions);
+            const result = await response.text();
+            console.log(result)
+        } catch (error) {
+            console.error(error);
+        };
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## Company LinkedIn Company URL Finder API in Python
+    <CodeGroup>
+        ```python Request
+        import requests
+
+        url = "https://api.companyurlfinder.com/v2/services/name_to_linkedin"
+
+        payload = 'query=cufinder.io'
+        headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'x-api-key': 'your_api_key'
+        }
+
+        response = requests.request("POST", url, headers=headers, data=payload)
+
+        print(response.text)
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## Company LinkedIn Company URL Finder API in PHP
+    <CodeGroup>
+        ```php Request
+        $client = new Client();
+        $headers = [
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'x-api-key' => 'your_api_key'
+        ];
+        $options = [
+            'form_params' => [
+            'query' => 'cufinder.io'
+        ]];
+        $request = new Request('POST', 'https://api.companyurlfinder.com/v2/services/name_to_linkedin', $headers);
+        $res = $client->sendAsync($request, $options)->wait();
+        echo $res->getBody();
+        ```
+    </CodeGroup>
+</div>
+
+
+<div className="mt-12">
+    ## Company LinkedIn Company URL Finder API in Go
+    <CodeGroup>
+        ```go Request
+        package main
+
+        import (
+        "fmt"
+        "strings"
+        "net/http"
+        "io"
+        )
+
+        func main() {
+
+        url := "https://api.companyurlfinder.com/v2/services/name_to_linkedin"
+        method := "POST"
+
+        payload := strings.NewReader("query=cufinder.io")
+
+        client := &http.Client {
+        }
+        req, err := http.NewRequest(method, url, payload)
+
+        if err != nil {
+            fmt.Println(err)
+            return
+        }
+        req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+        req.Header.Add("x-api-key", "your_api_key")
+
+        res, err := client.Do(req)
+        if err != nil {
+            fmt.Println(err)
+            return
+        }
+        defer res.Body.Close()
+
+        body, err := io.ReadAll(res.Body)
+        if err != nil {
+            fmt.Println(err)
+            return
+        }
+        fmt.Println(string(body))
+        }
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## Company LinkedIn Company URL Finder API in Ruby
+    <CodeGroup>
+        ```ruby Request
+        require "uri"
+        require "net/http"
+
+        url = URI("https://api.companyurlfinder.com/v2/services/name_to_linkedin")
+
+        https = Net::HTTP.new(url.host, url.port)
+        https.use_ssl = true
+
+        request = Net::HTTP::Post.new(url)
+        request["Content-Type"] = "application/x-www-form-urlencoded"
+        request["x-api-key"] = "your_api_key"
+        request.body = "query=cufinder.io"
+
+        response = https.request(request)
+        puts response.read_body
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## Company LinkedIn Company URL Finder API in Kotlin
+    <CodeGroup>
+        ```kotlin Request
+        val client = OkHttpClient()
+        val mediaType = "application/x-www-form-urlencoded".toMediaType()
+        val body = "query=cufinder.io".toRequestBody(mediaType)
+        val request = Request.Builder()
+        .url("https://api.companyurlfinder.com/v2/services/name_to_linkedin")
+        .post(body)
+        .addHeader("Content-Type", "application/x-www-form-urlencoded")
+        .addHeader("x-api-key", "your_api_key")
+        .build()
+        val response = client.newCall(request).execute()
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## Company LinkedIn Company URL Finder API in Java
+    <CodeGroup>
+        ```java Request
+        OkHttpClient client = new OkHttpClient().newBuilder().build();
+        MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+        RequestBody body = RequestBody.create(mediaType, "query=cufinder.io");
+        Request request = new Request.Builder()
+        .url("https://api.companyurlfinder.com/v2/services/name_to_linkedin")
+        .method("POST", body)
+        .addHeader("Content-Type", "application/x-www-form-urlencoded")
+        .addHeader("x-api-key", "your_api_key")
+        .build();
+        Response response = client.newCall(request).execute();
+        ```
+    </CodeGroup>
+</div>
+
