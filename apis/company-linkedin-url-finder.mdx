@@ -1,0 +1,245 @@
+---
+title: LinkedIn Company URL Finder API
+description: LinkedIn company profiles contain valuable business intelligence that sales teams need daily. The LinkedIn Company URL Finder API solves this by converting company names or domains into verified LinkedIn URLs with 96% confidence scores. Built for developers creating sales intelligence platforms, this RESTful endpoint returns accurate LinkedIn profile links that power prospect research automation, CRM data enrichment, and competitive analysis workflows across your tech stack.
+sidebarTitle: LinkedIn Company URL Finder
+---
+
+import { SDKsList } from "/snippets/SDKsList.jsx";
+import { StatusCodes } from "/snippets/StatusCodes.jsx";
+import { Button } from "/snippets/Button.jsx";
+import { ReadMore } from "/snippets/ReadMore.jsx";
+
+<div>
+    <div className="grid gap-4 grid-cols-12">
+        <div className="col-span-12 lg:col-span-5 pt-5">
+            <div className='border rounded-xl p-2 border-gray-200 overflow-hidden'>
+                <div className="flex justify-between flex-wrap gap-4 items-center">
+                    <div className="flex items-center gap-2">
+                        <Badge color="blue" shape="rounded" size="lg" className="uppercase">post</Badge>
+                        <p className="!my-0 ml-2 text-base text-gray-800 dark:text-white font-medium">https://api.cufinder.io/v2/lcuf</p>
+                    </div>
+                </div>
+            </div>
+            <Badge color="blue" size="lg" icon="star" className="mt-3">Credit usage is 3 per founded records.</Badge>
+            <div>
+                ## Attributes
+                <ParamField header="x-api-key" type="string" required>
+					Your API key.	
+                </ParamField>
+				<ParamField body="company_name" type="string" required>
+                    Company name
+                </ParamField>
+            </div>
+        </div>
+        <div className="col-span-12 lg:col-span-7">
+            <CodeGroup dropdown>
+                ```bash Request
+                curl --location 'https://api.cufinder.io/v2/lcuf' \
+                --header 'Content-Type: application/x-www-form-urlencoded' \
+                --header 'x-api-key: api_key' \
+                --data-urlencode 'company_name=cufinder'
+                ```
+
+                ```javascript Request
+                const myHeaders = new Headers();
+
+                myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+                myHeaders.append("x-api-key", "api_key");
+
+                const urlencoded = new URLSearchParams();
+                urlencoded.append("company_name", "cufinder");
+
+                const requestOptions = {
+                    method: "POST",
+                    headers: myHeaders,
+                    body: urlencoded,
+                    redirect: "follow"
+                };
+
+                fetch("https://api.cufinder.io/v2/lcuf", requestOptions)
+                .then((response) => response.text())
+                .then((result) => console.log(result))
+                .catch((error) => console.error(error));
+                ```
+
+                ```python Request
+                import requests
+
+                url = "https://api.cufinder.io/v2/lcuf"
+
+                payload = 'company_name=cufinder'
+                headers = {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'x-api-key': 'api_key'
+                }
+
+                response = requests.request("POST", url, headers=headers, data=payload)
+
+                print(response.text)
+                ```
+
+                ```php Request
+                $client = new Client();
+
+                $headers = [
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                    'x-api-key' => 'api_key'
+                ];
+
+                $options = [
+                    'form_params' => [
+                    'company_name' => 'cufinder'
+                ]];
+
+                $request = new Request('POST', 'https://api.cufinder.io/v2/lcuf', $headers);
+                $res = $client->sendAsync($request, $options)->wait();
+
+                echo $res->getBody();
+                ```
+            </CodeGroup>
+            <CodeGroup>
+                ```json Response
+                {
+                    "status": 1,
+                    "data": {
+                        "confidence_level": 96,
+                        "query": "cufinder",
+                        "linkedin_url": "linkedin.com/company/cufinder",
+                        "credit_count": 9991
+                    }
+                }
+                ```
+            </CodeGroup>
+        </div>
+    </div>
+</div>
+
+<SDKsList className="mt-20" />
+
+<StatusCodes className="mt-20" />
+
+<div className="mt-20">
+    ## LinkedIn Company URL Finder API Typescript SDK
+    <CodeGroup>
+        ```typescript Request
+        import { Cufinder } from '@cufinder/cufinder-ts';
+
+        // Initialize the client
+        const client = new Cufinder('your-api-key-here');
+
+        // Initialize with more options
+        const client = new Cufinder('your-api-key-here', { timeout: 60000 });
+
+        const result = await client.lcuf('cufinder');
+        console.log(result);
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## LinkedIn Company URL Finder API Python SDK
+    <CodeGroup>
+        ```python Request
+         from cufinder import Cufinder
+
+        # Initialize the client
+        client = Cufinder('your-api-key-here')
+
+        # Initialize with more options
+        client = Cufinder('your-api-key-here', timeout=60)
+        
+        result = client.lcuf('cufinder')
+        print(result)
+                ```
+    </CodeGroup>
+</div>
+<div className="mt-12">
+    ## LinkedIn Company URL Finder API Go SDK
+    <CodeGroup>
+        ```go Request
+         package main
+
+        import (
+            "fmt"
+            "log"
+            
+            "github.com/cufinder/cufinder-go"
+        )
+
+        func main() {
+            // Initialize the client
+            sdk := cufinder.NewSDK("your-api-key-here")
+            
+            // Initialize with more options
+            sdk := cufinder.NewSDKWithConfig(cufinder.ClientConfig{
+                APIKey:     "your-api-key-here",
+                BaseURL:    "https://api.cufinder.io/v2",
+                Timeout:    60 * time.Second,
+                MaxRetries: 3,
+            })
+        }
+        
+        result, err := sdk.LCUF("cufinder")
+        if err != nil {
+            log.Fatal(err)
+        }
+        fmt.Println(result)
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## LinkedIn Company URL Finder API Ruby SDK
+    <CodeGroup>
+        ```ruby Request
+        require 'cufinder_ruby'
+
+        # Initialize the client
+        client = Cufinder::Client.new(api_key: 'your-api-key-here')
+
+        # Initialize with more options
+        client = Cufinder::Client.new(
+            api_key: 'your-api-key-here',
+            timeout: 60,
+            max_retries: 3
+        )
+        
+        result = client.lcuf(company_name: 'cufinder')
+        puts result
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## LinkedIn Company URL Finder API Rust SDK
+    <CodeGroup>
+        ```rust Request
+       use cufinder_rust::CufinderSDK;
+
+        #[tokio::main]
+        async fn main() -> Result<(), Box<dyn std::error::Error>> {
+            // Initialize the client
+            let sdk = CufinderSDK::new("your-api-key-here".to_string())?;
+            
+            // Initialize with more options
+            let sdk = CufinderSDK::with_config(ClientConfig {
+                api_key: "your-api-key-here".to_string(),
+                base_url: "https://api.cufinder.io/v2".to_string(),
+                timeout: Duration::from_secs(60),
+                max_retries: 3,
+            })?;
+            
+            Ok(())
+        }
+
+        let result = sdk.lcuf("cufinder").await?;
+        println!("{:?}", result);
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-20">
+  <ReadMore link="https://cufinder.io/apis/company-linkedin-url-finder-api">
+    LinkedIn Company URL Finder API
+  </ReadMore>
+</div>

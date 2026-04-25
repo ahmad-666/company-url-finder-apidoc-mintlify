@@ -1,0 +1,277 @@
+---
+title: Company Subsidiaries Finder API
+description: Subsidiary networks reveal organizational structures that enterprise sales teams need to map complete account hierarchies. The Company Subsidiaries Finder API returns comprehensive lists of child companies and divisions from parent company queries with 93% confidence scores. Built for developers creating enterprise sales and organizational mapping tools, this RESTful endpoint delivers verified subsidiary data that power account planning, relationship mapping, and multi-division outreach workflows across your sales stack.
+sidebarTitle: Company Subsidiaries Finder
+---
+
+import { SDKsList } from "/snippets/SDKsList.jsx";
+import { StatusCodes } from "/snippets/StatusCodes.jsx";
+import { Button } from "/snippets/Button.jsx";
+import { ReadMore } from "/snippets/ReadMore.jsx";
+
+<div>
+    <div className="grid gap-4 grid-cols-12">
+        <div className="col-span-12 lg:col-span-5 pt-5">
+            <div className='border rounded-xl p-2 border-gray-200 overflow-hidden'>
+                <div className="flex justify-between flex-wrap gap-4 items-center">
+                    <div className="flex items-center gap-2">
+                        <Badge color="blue" shape="rounded" size="lg" className="uppercase">post</Badge>
+                        <p className="!my-0 ml-2 text-base text-gray-800 dark:text-white font-medium">https://api.cufinder.io/v2/fcc</p>
+                    </div>
+                </div>
+            </div>
+            <Badge color="blue" size="lg" icon="star" className="mt-3">Credit usage is 3 per founded records.</Badge>
+            <div>
+                ## Attributes
+                <ParamField header="x-api-key" type="string" required>
+					Your API key.	
+                </ParamField>
+				<ParamField body="query" type="string" required>
+                    Company name or Company domain or Company LinkedIn URL
+                </ParamField>
+            </div>
+        </div>
+        <div className="col-span-12 lg:col-span-7">
+            <CodeGroup dropdown>
+                ```bash Request
+                curl --location 'https://api.cufinder.io/v2/fcc' \
+                --header 'Content-Type: application/x-www-form-urlencoded' \
+                --header 'x-api-key: api_key' \
+                --data-urlencode 'query=amazon'
+
+                ```
+
+                ```javascript Request
+                const myHeaders = new Headers();
+
+                myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+                myHeaders.append("x-api-key", "api_key");
+
+                const urlencoded = new URLSearchParams();
+                urlencoded.append("query", "amazon");
+
+                const requestOptions = {
+                    method: "POST",
+                    headers: myHeaders,
+                    body: urlencoded,
+                    redirect: "follow"
+                };
+
+                fetch("https://api.cufinder.io/v2/fcc", requestOptions)
+                .then((response) => response.text())
+                .then((result) => console.log(result))
+                .catch((error) => console.error(error));
+                                ```
+
+                ```python Request
+                import requests
+
+                url = "https://api.cufinder.io/v2/fcc"
+
+                payload = 'query=amazon'
+                headers = {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'x-api-key': 'api_key'
+                }
+
+                response = requests.request("POST", url, headers=headers, data=payload)
+
+                print(response.text)
+                ```
+
+                ```php Request
+                $client = new Client();
+
+                $headers = [
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                    'x-api-key' => 'api_key'
+                ];
+
+                $options = [
+                'form_params' => [
+                    'query' => 'amazon'
+                ]];
+
+                $request = new Request('POST', 'https://api.cufinder.io/v2/fcc', $headers);
+                $res = $client->sendAsync($request, $options)->wait();
+
+                echo $res->getBody();
+                ```
+            </CodeGroup>
+            <CodeGroup>
+                ```json Response
+                {
+                    "status": 1,
+                    "data": {
+                        "confidence_level": 93,
+                        "query": "amazon",
+                        "subsidiaries": [
+                            "a9.com",
+                            "abebooks, an amazon company",
+                            "alexa.com",
+                            "amazon business",
+                            "amazon development center poland",
+                            "amazon fulfillment technologies & robotics",
+                            "amazon music",
+                            "amazon web services (aws)",
+                            "amazon games",
+                            "annapurna labs",
+                            "audible",
+                            "brilliance publishing",
+                            "comixology, an amazon company",
+                            "createspace",
+                            "curse",
+                            "goodreads",
+                            "imdb.com",
+                            "amazon lab126",
+                            "amazon | liquavista",
+                            "lovefilm",
+                            "prime video & amazon mgm studios",
+                            "quidsi inc., a subsidiary of amazon",
+                            "ring",
+                            "shopbop",
+                            "souq.com",
+                            "aws thinkbox",
+                            "twitch",
+                            "whole foods market",
+                            "woot, inc.",
+                            "zappos family of companies"
+                        ],
+                        "credit_count": 9892
+                    }
+                }
+                ```
+            </CodeGroup>
+        </div>
+    </div>
+</div>
+
+<SDKsList className="mt-20" />
+
+<StatusCodes className="mt-20" />
+
+<div className="mt-20">
+    ## Company Subsidiaries Finder API Typescript SDK
+    <CodeGroup>
+        ```typescript Request
+         import { Cufinder } from '@cufinder/cufinder-ts';
+
+        // Initialize the client
+        const client = new Cufinder('your-api-key-here');
+
+        // Initialize with more options
+        const client = new Cufinder('your-api-key-here', { timeout: 60000 });
+
+        const result = await client.fcc('amazon');
+        console.log(result);
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## Company Subsidiaries Finder API Python SDK
+    <CodeGroup>
+        ```python Request
+        from cufinder import Cufinder
+
+        # Initialize the client
+        client = Cufinder('your-api-key-here')
+
+        # Initialize with more options
+        client = Cufinder('your-api-key-here', timeout=60)
+        
+        result = client.fcc('amazon')
+        print(result)
+        ```
+    </CodeGroup>
+</div>
+<div className="mt-12">
+    ## Company Subsidiaries Finder API Go SDK
+    <CodeGroup>
+        ```go Request
+        package main
+
+        import (
+            "fmt"
+            "log"
+            
+            "github.com/cufinder/cufinder-go"
+        )
+
+        func main() {
+            // Initialize the client
+            sdk := cufinder.NewSDK("your-api-key-here")
+            
+            // Initialize with more options
+            sdk := cufinder.NewSDKWithConfig(cufinder.ClientConfig{
+                APIKey:     "your-api-key-here",
+                BaseURL:    "https://api.cufinder.io/v2",
+                Timeout:    60 * time.Second,
+                MaxRetries: 3,
+            })
+        }
+
+        result, err := sdk.FCC("amazon")
+        if err != nil {
+            log.Fatal(err)
+        }
+        fmt.Println(result)
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## Company Subsidiaries Finder API Ruby SDK
+    <CodeGroup>
+        ```ruby Request
+        require 'cufinder_ruby'
+
+        # Initialize the client
+        client = Cufinder::Client.new(api_key: 'your-api-key-here')
+
+        # Initialize with more options
+        client = Cufinder::Client.new(
+            api_key: 'your-api-key-here',
+            timeout: 60,
+            max_retries: 3
+        )
+
+        result = client.fcc(query: 'amazon')
+        puts result
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## Company Subsidiaries Finder API Rust SDK
+    <CodeGroup>
+        ```rust Request
+         use cufinder_rust::CufinderSDK;
+
+        #[tokio::main]
+        async fn main() -> Result<(), Box<dyn std::error::Error>> {
+            // Initialize the client
+            let sdk = CufinderSDK::new("your-api-key-here".to_string())?;
+            
+            // Initialize with more options
+            let sdk = CufinderSDK::with_config(ClientConfig {
+                api_key: "your-api-key-here".to_string(),
+                base_url: "https://api.cufinder.io/v2".to_string(),
+                timeout: Duration::from_secs(60),
+                max_retries: 3,
+            })?;
+            
+            Ok(())
+        }
+        
+        let result = sdk.fcc("amazon").await?;
+        println!("{:?}", result);
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-20">
+  <ReadMore link="https://cufinder.io/apis/company-subsidiaries-finder-api">
+    Company Subsidiaries Finder API
+  </ReadMore>
+</div>

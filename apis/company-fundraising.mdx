@@ -1,0 +1,250 @@
+---
+title: Company Fundraising API
+description: Funding data signals company growth momentum that sales and investment teams track religiously. The Company Fundraising API returns detailed investment information including funding rounds, raised amounts, and investor names from company queries with 97% confidence scores. Built for developers creating VC tools and sales intelligence platforms, this RESTful endpoint delivers verified fundraising details that power lead scoring systems, market research dashboards, and account prioritization workflows across your sales stack.
+sidebarTitle: Company Fundraising
+---
+
+import { SDKsList } from "/snippets/SDKsList.jsx";
+import { StatusCodes } from "/snippets/StatusCodes.jsx";
+import { Button } from "/snippets/Button.jsx";
+import { ReadMore } from "/snippets/ReadMore.jsx";
+
+<div>
+    <div className="grid gap-4 grid-cols-12">
+        <div className="col-span-12 lg:col-span-5 pt-5">
+            <div className='border rounded-xl p-2 border-gray-200 overflow-hidden'>
+                <div className="flex justify-between flex-wrap gap-4 items-center">
+                    <div className="flex items-center gap-2">
+                        <Badge color="blue" shape="rounded" size="lg" className="uppercase">post</Badge>
+                        <p className="!my-0 ml-2 text-base text-gray-800 dark:text-white font-medium">https://api.cufinder.io/v2/elf</p>
+                    </div>
+                </div>
+            </div>
+            <Badge color="blue" size="lg" icon="star" className="mt-3">Credit usage is 4 per founded records.</Badge>
+            <div>
+                ## Attributes
+                <ParamField header="x-api-key" type="string" required>
+					Your API key.	
+                </ParamField>
+				<ParamField body="query" type="string" required>
+                    Company name or Company domain or Company LinkedIn URL
+                </ParamField>
+            </div>
+        </div>
+        <div className="col-span-12 lg:col-span-7">
+            <CodeGroup dropdown>
+                ```bash Request
+                curl --location 'https://api.cufinder.io/v2/elf' \
+                --header 'Content-Type: application/x-www-form-urlencoded' \
+                --header 'x-api-key: api_key' \
+                --data-urlencode 'query=cufinder'
+                ```
+
+                ```javascript Request
+                const myHeaders = new Headers();
+
+                myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+                myHeaders.append("x-api-key", "api_key");
+
+                const urlencoded = new URLSearchParams();
+                urlencoded.append("query", "cufinder");
+
+                const requestOptions = {
+                    method: "POST",
+                    headers: myHeaders,
+                    body: urlencoded,
+                    redirect: "follow"
+                };
+
+                fetch("https://api.cufinder.io/v2/elf", requestOptions)
+                .then((response) => response.text())
+                .then((result) => console.log(result))
+                .catch((error) => console.error(error));
+                ```
+
+                ```python Request
+                import requests
+
+                url = "https://api.cufinder.io/v2/elf"
+
+                payload = 'query=cufinder'
+                headers = {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'x-api-key': 'api_key'
+                }
+
+                response = requests.request("POST", url, headers=headers, data=payload)
+
+                print(response.text)
+                ```
+
+                ```php Request
+                $client = new Client();
+
+                $headers = [
+                    'Content-Type' => 'application/x-www-form-urlencoded',
+                    'x-api-key' => 'api_key'
+                ];
+
+                $options = [
+                    'form_params' => [
+                    'query' => 'cufinder'
+                ]];
+
+                $request = new Request('POST', 'https://api.cufinder.io/v2/elf', $headers);
+                $res = $client->sendAsync($request, $options)->wait();
+
+                echo $res->getBody();
+                ```
+            </CodeGroup>
+            <CodeGroup>
+                ```json Response
+                {
+                    "status": 1,
+                    "data": {
+                        "confidence_level": 97,
+                        "query": "cufinder",
+                        "fundraising_info": {
+                            "funding_last_round_type": "series a",
+                            "funding_ammount_currency_code": "USD",
+                            "funding_money_raised": "us$ 5m",
+                            "funding_last_round_investors_url": "https://www.crunchbase.com/funding_round/cu-finder-series-a--ffbafce2"
+                        },
+                        "credit_count": 9909
+                    }
+                }
+                ```
+            </CodeGroup>
+        </div>
+    </div>
+</div>
+
+<SDKsList className="mt-20" />
+
+<StatusCodes className="mt-20" />
+
+<div className="mt-20">
+    ## Company Fundraising API Typescript SDK
+    <CodeGroup>
+        ```typescript Request
+       import { Cufinder } from '@cufinder/cufinder-ts';
+
+        // Initialize the client
+        const client = new Cufinder('your-api-key-here');
+
+        // Initialize with more options
+        const client = new Cufinder('your-api-key-here', { timeout: 60000 });
+
+        const result = await client.elf('cufinder');
+        console.log(result);
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## Company Fundraising API Python SDK
+    <CodeGroup>
+        ```python Request
+        from cufinder import Cufinder
+
+        # Initialize the client
+        client = Cufinder('your-api-key-here')
+
+        # Initialize with more options
+        client = Cufinder('your-api-key-here', timeout=60)
+        
+        result = client.elf('cufinder')
+        print(result)
+        ```
+    </CodeGroup>
+</div>
+<div className="mt-12">
+    ## Company Fundraising API Go SDK
+    <CodeGroup>
+        ```go Request
+        package main
+
+        import (
+            "fmt"
+            "log"
+            
+            "github.com/cufinder/cufinder-go"
+        )
+
+        func main() {
+            // Initialize the client
+            sdk := cufinder.NewSDK("your-api-key-here")
+            
+            // Initialize with more options
+            sdk := cufinder.NewSDKWithConfig(cufinder.ClientConfig{
+                APIKey:     "your-api-key-here",
+                BaseURL:    "https://api.cufinder.io/v2",
+                Timeout:    60 * time.Second,
+                MaxRetries: 3,
+            })
+        }
+        
+        result, err := sdk.ELF("cufinder")
+        if err != nil {
+            log.Fatal(err)
+        }
+        fmt.Println(result)
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## Company Fundraising API Ruby SDK
+    <CodeGroup>
+        ```ruby Request
+        require 'cufinder_ruby'
+
+        # Initialize the client
+        client = Cufinder::Client.new(api_key: 'your-api-key-here')
+
+        # Initialize with more options
+        client = Cufinder::Client.new(
+            api_key: 'your-api-key-here',
+            timeout: 60,
+            max_retries: 3
+        )
+
+        result = client.elf(query: 'cufinder')
+        puts result
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## Company Fundraising API Rust SDK
+    <CodeGroup>
+        ```rust Request
+        use cufinder_rust::CufinderSDK;
+
+        #[tokio::main]
+        async fn main() -> Result<(), Box<dyn std::error::Error>> {
+            // Initialize the client
+            let sdk = CufinderSDK::new("your-api-key-here".to_string())?;
+            
+            // Initialize with more options
+            let sdk = CufinderSDK::with_config(ClientConfig {
+                api_key: "your-api-key-here".to_string(),
+                base_url: "https://api.cufinder.io/v2".to_string(),
+                timeout: Duration::from_secs(60),
+                max_retries: 3,
+            })?;
+            
+            Ok(())
+        }
+
+        let result = sdk.elf("cufinder").await?;
+        println!("{:?}", result);
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-20">
+  <ReadMore link="https://cufinder.io/apis/company-linkedin-url-finder-api">
+    Company Fundraising API
+  </ReadMore>
+</div>

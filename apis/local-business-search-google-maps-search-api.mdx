@@ -1,0 +1,669 @@
+---
+title: Local Business Search API
+description: Local businesses represent untapped markets that B2C and service-based companies overlook in traditional B2B databases. The Local Business Search API queries neighborhood businesses by location and industry—returning phones, emails, ratings, and social profiles—with 95% confidence scores. Built for developers creating local marketing and service provider platforms, this RESTful endpoint delivers comprehensive small business data including NAICS codes and Google Maps integration that power geo-targeted campaigns, competitor analysis, and community outreach workflows across your sales stack.
+sidebarTitle: Local Business Search
+---
+
+import { SDKsList } from "/snippets/SDKsList.jsx";
+import { StatusCodes } from "/snippets/StatusCodes.jsx";
+import { Button } from "/snippets/Button.jsx";
+import { ReadMore } from "/snippets/ReadMore.jsx";
+
+<div>
+    <div className="grid gap-4 grid-cols-12">
+        <div className="col-span-12 lg:col-span-5 pt-5">
+            <div className='border rounded-xl p-2 border-gray-200 overflow-hidden'>
+                <div className="flex justify-between flex-wrap gap-4 items-center">
+                    <div className="flex items-center gap-2">
+                        <Badge color="blue" shape="rounded" size="lg" className="uppercase">post</Badge>
+                        <p className="!my-0 ml-2 text-base text-gray-800 dark:text-white font-medium">https://api.cufinder.io/v2/lbs</p>
+                    </div>
+                </div>
+            </div>
+            <Badge color="blue" size="lg" icon="star" className="mt-3">Credit usage is 5 per founded records.</Badge>
+            <div>
+                ## Attributes
+                <ParamField header="x-api-key" type="string" required>
+                    Your API key.
+                </ParamField>
+                <ParamField body="name" type="string(contains, e.g. '%john doe%')" required>
+                    Local business name
+                </ParamField>
+                <ParamField body="country" type="string" required>
+                    Local business country
+                </ParamField>
+                <ParamField body="state" type="string">
+                    Local business state
+                </ParamField>
+                <ParamField body="city" type="string">
+                    Local business city
+                </ParamField>
+                <ParamField body="industry" type="string">
+                    Local business industry
+                </ParamField>
+                <ParamField body="page" type="integer">
+                    Page filter
+                </ParamField>
+            </div>
+        </div>
+        <div className="col-span-12 lg:col-span-7">
+            <CodeGroup dropdown>
+                ```bash Request
+                 curl --location 'https://api.cufinder.io/v2/lbs' \
+                --header 'Content-Type: application/json' \
+                --header 'x-api-key: api_key' \
+                --data '{
+                    "name": "sens",
+                    "country": "united states",
+                    "state": "california",
+                    "page": 1
+                }'
+
+                ```
+
+                ```javascript Request
+                const myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+                myHeaders.append("x-api-key", "api_key");
+
+                const raw = JSON.stringify({
+                    "name": "sens",
+                    "country": "united states",
+                    "state": "california",
+                    "page": 1
+                });
+
+                const requestOptions = {
+                    method: "POST",
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: "follow"
+                };
+
+                fetch("https://api.cufinder.io/v2/lbs", requestOptions)
+                .then((response) => response.text())
+                .then((result) => console.log(result))
+                .catch((error) => console.error(error));
+
+                ```
+
+                ```python Request
+                import requests
+                import json
+
+                url = "https://api.cufinder.io/v2/lbs"
+
+                payload = json.dumps({
+                    "name": "sens",
+                    "country": "united states",
+                    "state": "california",
+                    "page": 1
+                })
+                headers = {
+                    'Content-Type': 'application/json',
+                    'x-api-key': 'api_key'
+                }
+
+                response = requests.request("POST", url, headers=headers, data=payload)
+
+                print(response.text)
+
+
+                ```
+
+                ```php Request
+                $client = new Client();
+                $headers = [
+                    'Content-Type' => 'application/json',
+                    'x-api-key' => 'api_key'
+                ];
+                $body = '{
+                    "name": "sens",
+                    "country": "united states",
+                    "state": "california",
+                    "page": 1
+                }';
+                $request = new Request('POST', 'https://api.cufinder.io/v2/lbs', $headers, $body);
+                $res = $client->sendAsync($request)->wait();
+                echo $res->getBody();
+
+                ```
+            </CodeGroup>
+            <CodeGroup>
+                ```json Response
+                  {
+                    "status": 1,
+                    "data": {
+                        "confidence_level": 95,
+                        "query": {
+                            "country": "united states",
+                            "state": "california",
+                            "page": 1
+                        },
+                        "companies": [
+                            {
+                                "name": "Party Popper Balloons",
+                                "website": null,
+                                "industry": "balloon artist",
+                                "industry_details": {
+                                    "level_1": "Entertainer",
+                                    "level_2": "Entertainment and Recreation",
+                                    "naics_code": "711510",
+                                    "sic_code": "7929"
+                                },
+                                "main_location": {
+                                    "country": "united states",
+                                    "state": "california",
+                                    "city": "acalanes ridge",
+                                    "address": null
+                                },
+                                "geo_location": {
+                                    "google_maps_id": null,
+                                    "rating": null,
+                                    "reviews_count": null
+                                },
+                                "social": {
+                                    "linkedin": null,
+                                    "twitter": null,
+                                    "facebook": null,
+                                    "instagram": null,
+                                    "youtube": null
+                                },
+                                "connections": {
+                                    "phones": [
+                                        "(415) 610-4787"
+                                    ],
+                                    "emails": [],
+                                    "phone_type": "FIXED_LINE_OR_MOBILE"
+                                }
+                            },
+                            {
+                                "name": "Easy Bookkeeping 123",
+                                "website": "https://www.easybookkeeping123.com/",
+                                "industry": "bookkeeping service",
+                                "industry_details": {
+                                    "level_1": "Bookkeeping Service",
+                                    "level_2": "Financial and Legal Services",
+                                    "naics_code": "541213",
+                                    "sic_code": "8721"
+                                },
+                                "main_location": {
+                                    "country": "united states",
+                                    "state": "california",
+                                    "city": "acalanes ridge",
+                                    "address": null
+                                },
+                                "geo_location": {
+                                    "google_maps_id": null,
+                                    "rating": null,
+                                    "reviews_count": null
+                                },
+                                "social": {
+                                    "linkedin": "linkedin.com/company/123-bookkeeping",
+                                    "twitter": null,
+                                    "facebook": null,
+                                    "instagram": null,
+                                    "youtube": null
+                                },
+                                "connections": {
+                                    "phones": [
+                                        "(415) 570-8568"
+                                    ],
+                                    "emails": [
+                                        "info@easybookkeeping123.com"
+                                    ],
+                                    "phone_type": "FIXED_LINE_OR_MOBILE"
+                                }
+                            },
+                            {
+                                "name": "All People Electric",
+                                "website": null,
+                                "industry": "electrician",
+                                "industry_details": {
+                                    "level_1": "Electrician",
+                                    "level_2": "Construction and Home Improvement",
+                                    "naics_code": "238210",
+                                    "sic_code": "1731"
+                                },
+                                "main_location": {
+                                    "country": "united states",
+                                    "state": "california",
+                                    "city": "acalanes ridge",
+                                    "address": null
+                                },
+                                "geo_location": {
+                                    "google_maps_id": "ChIJMQl5OZ5ZhYARWe0rbOoE0EQ",
+                                    "rating": 4.7,
+                                    "reviews_count": 12
+                                },
+                                "social": {
+                                    "linkedin": null,
+                                    "twitter": null,
+                                    "facebook": null,
+                                    "instagram": null,
+                                    "youtube": null
+                                },
+                                "connections": {
+                                    "phones": [
+                                        "(925) 477-1877"
+                                    ],
+                                    "emails": [],
+                                    "phone_type": "FIXED_LINE_OR_MOBILE"
+                                }
+                            },
+                            {
+                                "name": "Kerex Engineering Inc.",
+                                "website": "http://kerexengineering.com/",
+                                "industry": "engineer",
+                                "industry_details": {
+                                    "level_1": "Engineering",
+                                    "level_2": "Industrial and Manufacturing",
+                                    "naics_code": "541330",
+                                    "sic_code": "8711"
+                                },
+                                "main_location": {
+                                    "country": "united states",
+                                    "state": "california",
+                                    "city": "acalanes ridge",
+                                    "address": null
+                                },
+                                "geo_location": {
+                                    "google_maps_id": null,
+                                    "rating": null,
+                                    "reviews_count": null
+                                },
+                                "social": {
+                                    "linkedin": null,
+                                    "twitter": null,
+                                    "facebook": null,
+                                    "instagram": null,
+                                    "youtube": null
+                                },
+                                "connections": {
+                                    "phones": [],
+                                    "emails": [
+                                        "patrick@kerexengineering.com"
+                                    ],
+                                    "phone_type": null
+                                }
+                            },
+                            {
+                                "name": "Delta Renovation",
+                                "website": "http://www.delta-renovation.com/",
+                                "industry": "kitchen remodels",
+                                "industry_details": {
+                                    "level_1": "Kitchen Remodeler",
+                                    "level_2": "Construction and Home Improvement",
+                                    "naics_code": "236118",
+                                    "sic_code": "1521"
+                                },
+                                "main_location": {
+                                    "country": "united states",
+                                    "state": "california",
+                                    "city": "acalanes ridge",
+                                    "address": null
+                                },
+                                "geo_location": {
+                                    "google_maps_id": null,
+                                    "rating": null,
+                                    "reviews_count": null
+                                },
+                                "social": {
+                                    "linkedin": null,
+                                    "twitter": null,
+                                    "facebook": null,
+                                    "instagram": null,
+                                    "youtube": null
+                                },
+                                "connections": {
+                                    "phones": [
+                                        "(925) 239-0055"
+                                    ],
+                                    "emails": [
+                                        "info@delta-renovation.com"
+                                    ],
+                                    "phone_type": "FIXED_LINE_OR_MOBILE"
+                                }
+                            },
+                            {
+                                "name": "Prospera Mental Health & Wellness",
+                                "website": "http://prosperamhw.com/",
+                                "industry": "mental health service",
+                                "industry_details": {
+                                    "level_1": "Mental health clinic",
+                                    "level_2": "Health and Medical Services",
+                                    "naics_code": "621330",
+                                    "sic_code": "8063"
+                                },
+                                "main_location": {
+                                    "country": "united states",
+                                    "state": "california",
+                                    "city": "acalanes ridge",
+                                    "address": null
+                                },
+                                "geo_location": {
+                                    "google_maps_id": "ChIJlROjcreBhYARo3QkWH9bPa8",
+                                    "rating": 5,
+                                    "reviews_count": 27
+                                },
+                                "social": {
+                                    "linkedin": null,
+                                    "twitter": null,
+                                    "facebook": null,
+                                    "instagram": null,
+                                    "youtube": null
+                                },
+                                "connections": {
+                                    "phones": [
+                                        "(415) 684-8146"
+                                    ],
+                                    "emails": [
+                                        "andrea@prosperamhw.com"
+                                    ],
+                                    "phone_type": "FIXED_LINE_OR_MOBILE"
+                                }
+                            },
+                            {
+                                "name": "Briones Peak",
+                                "website": null,
+                                "industry": "mountain peak",
+                                "industry_details": {
+                                    "level_1": "Landmark",
+                                    "level_2": "Real Estate and Property Management",
+                                    "naics_code": "713990",
+                                    "sic_code": "7999"
+                                },
+                                "main_location": {
+                                    "country": "united states",
+                                    "state": "california",
+                                    "city": "acalanes ridge",
+                                    "address": "California 94553"
+                                },
+                                "geo_location": {
+                                    "google_maps_id": null,
+                                    "rating": null,
+                                    "reviews_count": null
+                                },
+                                "social": {
+                                    "linkedin": null,
+                                    "twitter": null,
+                                    "facebook": null,
+                                    "instagram": null,
+                                    "youtube": null
+                                },
+                                "connections": {
+                                    "phones": [],
+                                    "emails": [],
+                                    "phone_type": null
+                                }
+                            },
+                            {
+                                "name": "Jackson PR Enterprises",
+                                "website": "https://www.jacksonprenterprises.net/",
+                                "industry": "notary public",
+                                "industry_details": {
+                                    "level_1": "Notary Public",
+                                    "level_2": "Financial and Legal Services",
+                                    "naics_code": "541120",
+                                    "sic_code": "6541"
+                                },
+                                "main_location": {
+                                    "country": "united states",
+                                    "state": "california",
+                                    "city": "acalanes ridge",
+                                    "address": null
+                                },
+                                "geo_location": {
+                                    "google_maps_id": null,
+                                    "rating": null,
+                                    "reviews_count": null
+                                },
+                                "social": {
+                                    "linkedin": null,
+                                    "twitter": null,
+                                    "facebook": null,
+                                    "instagram": null,
+                                    "youtube": null
+                                },
+                                "connections": {
+                                    "phones": [
+                                        "(707) 208-5388"
+                                    ],
+                                    "emails": [],
+                                    "phone_type": "FIXED_LINE_OR_MOBILE"
+                                }
+                            },
+                            {
+                                "name": "All American Paints",
+                                "website": null,
+                                "industry": "painter",
+                                "industry_details": {
+                                    "level_1": "Painter",
+                                    "level_2": "Arts and Crafts",
+                                    "naics_code": "238320",
+                                    "sic_code": "1721"
+                                },
+                                "main_location": {
+                                    "country": "united states",
+                                    "state": "california",
+                                    "city": "acalanes ridge",
+                                    "address": null
+                                },
+                                "geo_location": {
+                                    "google_maps_id": null,
+                                    "rating": null,
+                                    "reviews_count": null
+                                },
+                                "social": {
+                                    "linkedin": null,
+                                    "twitter": null,
+                                    "facebook": null,
+                                    "instagram": null,
+                                    "youtube": null
+                                },
+                                "connections": {
+                                    "phones": [
+                                        "(925) 705-1695"
+                                    ],
+                                    "emails": [],
+                                    "phone_type": "FIXED_LINE_OR_MOBILE"
+                                }
+                            },
+                            {
+                                "name": "Lamorinda Gopher, LLC",
+                                "website": "http://lamorindagopher.com/",
+                                "industry": "pest control service",
+                                "industry_details": {
+                                    "level_1": "Pest Control Service",
+                                    "level_2": "Agricultural and Environmental Services",
+                                    "naics_code": "561710",
+                                    "sic_code": "7342"
+                                },
+                                "main_location": {
+                                    "country": "united states",
+                                    "state": "california",
+                                    "city": "acalanes ridge",
+                                    "address": null
+                                },
+                                "geo_location": {
+                                    "google_maps_id": "ChIJe5DtBcF9hYARQNoeUoOJskc",
+                                    "rating": 5,
+                                    "reviews_count": 6
+                                },
+                                "social": {
+                                    "linkedin": null,
+                                    "twitter": null,
+                                    "facebook": null,
+                                    "instagram": null,
+                                    "youtube": null
+                                },
+                                "connections": {
+                                    "phones": [
+                                        "(925) 257-0023"
+                                    ],
+                                    "emails": [],
+                                    "phone_type": "FIXED_LINE_OR_MOBILE"
+                                }
+                            }
+                        ],
+                        "credit_count": 9978
+                    }
+                }
+                ```
+            </CodeGroup>
+        </div>
+    </div>
+</div>
+
+<SDKsList className="mt-20" />
+
+<StatusCodes className="mt-20" />
+
+<div className="mt-20">
+    ## Local Business Search API Typescript SDK
+    <CodeGroup>
+        ```typescript Request
+        import { Cufinder } from '@cufinder/cufinder-ts';
+
+        // Initialize the client
+        const client = new Cufinder('your-api-key-here');
+
+        // Initialize with more options
+        const client = new Cufinder('your-api-key-here', { timeout: 60000 });
+
+        const result = await client.lbs({
+            country: 'united states',
+            state: 'california',
+            page: 1
+        });
+        console.log(result);
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## Local Business Search API Python SDK
+    <CodeGroup>
+        ```python Request
+         from cufinder import Cufinder
+
+        # Initialize the client
+        client = Cufinder('your-api-key-here')
+
+        # Initialize with more options
+        client = Cufinder('your-api-key-here', timeout=60)
+
+        result = client.lbs(
+            country='united states',
+            state='california',
+            page=1
+        )
+        print(result)
+        ```
+    </CodeGroup>
+</div>
+<div className="mt-12">
+    ## Local Business Search API Go SDK
+    <CodeGroup>
+        ```go Request
+        package main
+
+        import (
+            "fmt"
+            "log"
+            
+            "github.com/cufinder/cufinder-go"
+        )
+
+        func main() {
+            // Initialize the client
+            sdk := cufinder.NewSDK("your-api-key-here")
+            
+            // Initialize with more options
+            sdk := cufinder.NewSDKWithConfig(cufinder.ClientConfig{
+                APIKey:     "your-api-key-here",
+                BaseURL:    "https://api.cufinder.io/v2",
+                Timeout:    60 * time.Second,
+                MaxRetries: 3,
+            })
+        }
+        
+        result, err := sdk.LBS(cufinder.LbsParams{
+            Country: "united states",
+            State:   "california",
+            Page:    1,
+        })
+        if err != nil {
+            log.Fatal(err)
+        }
+        fmt.Println(result)
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## Local Business Search API Ruby SDK
+    <CodeGroup>
+        ```ruby Request
+        require 'cufinder_ruby'
+
+        # Initialize the client
+        client = Cufinder::Client.new(api_key: 'your-api-key-here')
+
+        # Initialize with more options
+        client = Cufinder::Client.new(
+            api_key: 'your-api-key-here',
+            timeout: 60,
+            max_retries: 3
+        )
+
+        result = client.lbs(
+            country: 'united states',
+            state: 'california',
+            page: 1
+        )
+        puts result
+        ```
+    </CodeGroup>
+</div>
+
+<div className="mt-12">
+    ## Local Business Search API Rust SDK
+    <CodeGroup>
+        ```rust Request
+        use cufinder_rust::CufinderSDK;
+
+        #[tokio::main]
+        async fn main() -> Result<(), Box<dyn std::error::Error>> {
+            // Initialize the client
+            let sdk = CufinderSDK::new("your-api-key-here".to_string())?;
+            
+            // Initialize with more options
+            let sdk = CufinderSDK::with_config(ClientConfig {
+                api_key: "your-api-key-here".to_string(),
+                base_url: "https://api.cufinder.io/v2".to_string(),
+                timeout: Duration::from_secs(60),
+                max_retries: 3,
+            })?;
+            
+            Ok(())
+        }
+        
+        use cufinder_rust::LbsParams;
+
+        let result = sdk.lbs(LbsParams {
+            country: Some("united states".to_string()),
+            state: Some("california".to_string()),
+            page: Some(1),
+            ..Default::default()
+        }).await?;
+        println!("{:?}", result);
+        ```
+    </CodeGroup>
+</div>
+
+{/* <div className="mt-20">
+  <ReadMore link="">
+    Local Business Search API
+  </ReadMore>
+</div> */}
